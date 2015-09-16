@@ -1,3 +1,4 @@
+<%@include file ="include.html" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -20,7 +21,7 @@ int cardNo = Integer.parseInt((String) session.getAttribute("CardNo"));
 </head>
 <body>
 
-<table>
+<table class="table table-hover">
 	<tr>
 	
 	<th>Book Title</th>
@@ -35,7 +36,7 @@ int cardNo = Integer.parseInt((String) session.getAttribute("CardNo"));
 			<td align="center"><%=b.getBook().getTitle() %></td>
 			<td align="center"><%=b.getBranch().getBranchName() %></td>
 	        <td align="center"><%=b.getDueDate() %></td>
-			<td align="center"><button type="button" onclick="javascript:location.href='returnBook?cardNo=<%=b.getBorrower().getCardNo()%>&bookId=<%=b.getBook().getBookId()%>&branchId=<%=b.getBranch().getBranchId()%>'">RETURN</button></td>
+			<td align="center"><button type="button" class="btn btn-sm btn-success" onclick="javascript:location.href='returnBook?cardNo=<%=b.getBorrower().getCardNo()%>&bookId=<%=b.getBook().getBookId()%>&branchId=<%=b.getBranch().getBranchId()%>'">RETURN</button></td>
 		</tr>
 		
 	<%} %>

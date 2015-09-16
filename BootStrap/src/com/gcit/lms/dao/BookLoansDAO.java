@@ -24,6 +24,10 @@ public class BookLoansDAO extends BaseDAO{
 		return readAll("select * from tbl_book_loans where cardNo=? and dateIn is null", new Object[] {cardNo});
 	}
 	
+	public List<BookLoans> getAllBookLoans() throws ClassNotFoundException, SQLException{
+		return readAll("select * from tbl_book_loans where dateIn is null", null);
+	}
+	
     public void checkOut(BookLoans bookloans)throws ClassNotFoundException, SQLException{
 		 
 		
@@ -38,6 +42,11 @@ public class BookLoansDAO extends BaseDAO{
 				new Object[] {bookloans.getBorrower().getCardNo(), bookloans.getBranch().getBranchId(), bookloans.getBook().getBookId() });
         
 		save("update tbl_book_copies set noOfCopies=noOfCopies+1 where bookId=? and branchId=?", new Object[] { bookloans.getBook().getBookId(), bookloans.getBranch().getBranchId()});
+	}
+	
+	public void updateDueDate(BookLoans bookloans) throws ClassNotFoundException, SQLException{
+		save("update tbl_book_loans set dueDate=CURDATE()+INTERVAL 7 Day where bookId=? and branchId=? and cardNo=?",
+				new Object[] {bookloans.getBook().getBookId(), bookloans.getBranch().getBranchId(),bookloans.getBorrower().getCardNo()});
 	}
 
 

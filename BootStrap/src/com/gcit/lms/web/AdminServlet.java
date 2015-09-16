@@ -24,7 +24,7 @@ import com.gcit.lms.service.LibrarianService;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet({"/addAuthor", "/updateBranchAddress", "/returnBook", "/updateDetails","/editBorrowers",  "/deleteBranch",  "/editBranch", "/editPublisher", "/addBranch" ,"/editAuthors", "/editBooks", "/editBook",  "/addBooks", "/editAuthor","/checkOut", "/deleteBorrower", "/addCopies", "/addBorrowers", "/deletePublisher", "/selectedBranch2","/deleteBook", "/deleteAuthor", "/addPublisher", "/selectedBranch", "/updateBranchName", "/borrower"})
+@WebServlet({"/addAuthor","/searchBooks", "/dueDate", "/searchBorrowers","/searchPublishers", "/searchBranches", "/updateBranchAddress","/searchAuthors", "/returnBook", "/updateDetails","/editBorrowers",  "/deleteBranch",  "/editBranch", "/editPublisher", "/addBranch" ,"/editAuthors", "/editBooks", "/editBook",  "/addBooks", "/editAuthor","/checkOut", "/deleteBorrower", "/addCopies", "/addBorrowers", "/deletePublisher", "/selectedBranch2","/deleteBook", "/deleteAuthor", "/addPublisher", "/selectedBranch", "/updateBranchName", "/borrower"})
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,7 +43,7 @@ public class AdminServlet extends HttpServlet {
 	{String reqUrl = request.getRequestURI().substring(request.getContextPath().length(),
 			request.getRequestURI().length());
 	
-	String forwardPath = "admin.html";
+	String forwardPath = "/admin.jsp";
 	switch (reqUrl) {
 	
 		
@@ -52,6 +52,8 @@ public class AdminServlet extends HttpServlet {
 		deleteAuthor(request);
 		forwardPath="/author.jsp";
 		break;
+		
+	
 		
 	case "/returnBook":
 		// System.out.println(request.getParameter("branchId"));
@@ -95,6 +97,8 @@ public class AdminServlet extends HttpServlet {
 	rd.forward(request, response);
 }
 
+	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -104,7 +108,7 @@ public class AdminServlet extends HttpServlet {
 				request.getRequestURI().length());
 		
 		
-		String forwardPath = "admin.html";
+		String forwardPath = "/admin.jsp";
 		switch (reqUrl) {
 		case"/selectedBranch":
 			
@@ -115,6 +119,31 @@ public class AdminServlet extends HttpServlet {
 			editBook(request);
 			request.setAttribute("editBooksMessage", "Book Updated Sucessfully");
 			forwardPath="/book.jsp";
+			break;
+			
+		case "/searchAuthors":
+			searchAuthor(request);
+			forwardPath="/viewauthors.jsp";
+			break;
+			
+		case "/searchBorrowers":
+			searchBorrowers(request);
+			forwardPath="/viewborrowers.jsp";
+			break;
+			
+		case "/searchBranches":
+			searchBranches(request);
+			forwardPath="/viewbranches.jsp";
+			break;
+			
+		case "/searchPublishers":
+			searchPublishers(request);
+			forwardPath="/viewpublishers.jsp";
+			break;
+			
+		case "/searchBooks":
+			searchBooks(request);
+			forwardPath="/viewbooks.jsp";
 			break;
 			
 		case "/editAuthors":
@@ -176,6 +205,11 @@ public class AdminServlet extends HttpServlet {
 			forwardPath = "/librarian.jsp";
 			break;
 			
+		case "/dueDate":
+			dueDate(request);
+			forwardPath = "/duedate.jsp";
+			break;
+			
 		
 			
 		case "/addPublisher":
@@ -220,6 +254,86 @@ public class AdminServlet extends HttpServlet {
 			}
 		  }
 	 
+	 private void searchAuthor(HttpServletRequest request) {
+			String search = request.getParameter("search");
+			AdministratorService admin = new AdministratorService();
+			List<Author> authors = new ArrayList<Author>();
+			try {
+				authors= admin.searchAuthor(search);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("authors", authors);
+		}
+	 
+	 private void searchBorrowers(HttpServletRequest request) {
+			String search = request.getParameter("search");
+			AdministratorService admin = new AdministratorService();
+			List<Borrower> borrowers = new ArrayList<Borrower>();
+			try {
+				borrowers= admin.searchBorrower(search);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("borrowers", borrowers);
+		}
+	 
+	 private void searchBranches(HttpServletRequest request) {
+			String search = request.getParameter("search");
+			AdministratorService admin = new AdministratorService();
+			List<Branch> branches = new ArrayList<Branch>();
+			try {
+				branches= admin.searchBranch(search);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("branches", branches);
+		}
+	 
+	 private void searchPublishers(HttpServletRequest request) {
+			String search = request.getParameter("search");
+			AdministratorService admin = new AdministratorService();
+			List<Publisher> publishers = new ArrayList<Publisher>();
+			try {
+				publishers= admin.searchPublisher(search);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("publishers", publishers);
+		}
+	 
+	 private void searchBooks(HttpServletRequest request) {
+			String search = request.getParameter("search");
+			AdministratorService admin = new AdministratorService();
+			List<Book> books = new ArrayList<Book>();
+			try {
+				books= admin.searchBook(search);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("books", books);
+		}
+	 
 	 private void returnBook(HttpServletRequest request) {
 		 int cardNo = Integer.parseInt(request.getParameter("cardNo"));
 		 Borrower borrower = new Borrower();
@@ -238,6 +352,34 @@ public class AdminServlet extends HttpServlet {
 		 BorrowerService bor = new BorrowerService();
 		 try {
 			bor.returnBook(bookloans);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
+	 
+	 private void dueDate(HttpServletRequest request) {
+		 int cardNo = Integer.parseInt(request.getParameter("cardNo"));
+		 Borrower borrower = new Borrower();
+		 borrower.setCardNo(cardNo);
+		 int branchId = Integer.parseInt(request.getParameter("branchId"));
+		 Branch branch = new Branch();
+		 branch.setBranchId(branchId);
+		 int bookId = Integer.parseInt(request.getParameter("bookId"));
+		 Book book = new Book();
+		 book.setBookId(bookId);
+		 BookLoans bookloans = new BookLoans();
+		 bookloans.setBorrower(borrower);
+		 bookloans.setBranch(branch);
+		 bookloans.setBook(book);
+		 String dateOut = request.getParameter("dateOut");
+		 String dueDate = request.getParameter("dueDate");
+		 bookloans.setDateOut(dateOut);
+		 bookloans.setDueDate(dueDate);
+		 
+		 AdministratorService admin = new AdministratorService();
+		 try {
+			 admin.dueDate(bookloans);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -332,10 +474,12 @@ public class AdminServlet extends HttpServlet {
 		int authorId = Integer.parseInt (request.getParameter("authorId"));
 		Author author = new Author();
 		author.setAuthorId(authorId);
+		Author authors = new Author();
 		AdministratorService admin = new AdministratorService();
-		List<Author> authors = new ArrayList<Author>();
+		List<Author> author1 = new ArrayList <Author>();
 		try {
 			authors = admin.viewAuthorById(author);
+			author1.add(authors);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -348,7 +492,7 @@ public class AdminServlet extends HttpServlet {
 		publisher.setPublisherId(pubId);
 		
 		Book book = new Book();
-		book.setAuthors(authors);
+		book.setAuthors(author1);
 		book.setPublisher(publisher);
 		book.setTitle(title);
 		
