@@ -33,7 +33,7 @@ public class AdminServlet extends HttpServlet {
      */
     public AdminServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
@@ -83,6 +83,11 @@ public class AdminServlet extends HttpServlet {
 		forwardPath = "/addcopies.jsp";
 		break;
 		
+	case "/dueDate":
+		dueDate(request);
+		forwardPath = "/duedate.jsp";
+		break;
+		
 	case "/deletePublisher":
 		deletePublisher(request);
 		forwardPath="/publisher.jsp";
@@ -103,7 +108,7 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		String reqUrl = request.getRequestURI().substring(request.getContextPath().length(),
 				request.getRequestURI().length());
 		
@@ -205,13 +210,6 @@ public class AdminServlet extends HttpServlet {
 			forwardPath = "/librarian.jsp";
 			break;
 			
-		case "/dueDate":
-			dueDate(request);
-			forwardPath = "/duedate.jsp";
-			break;
-			
-		
-			
 		case "/addPublisher":
 			addPublisher(request);
 			request.setAttribute("addPublisherMessage", "Publisher Added Sucessfully");
@@ -249,7 +247,7 @@ public class AdminServlet extends HttpServlet {
 			try {
 				admin.createAuthor(author);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		  }
@@ -261,10 +259,10 @@ public class AdminServlet extends HttpServlet {
 			try {
 				authors= admin.searchAuthor(search);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			request.setAttribute("authors", authors);
@@ -277,10 +275,10 @@ public class AdminServlet extends HttpServlet {
 			try {
 				borrowers= admin.searchBorrower(search);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			request.setAttribute("borrowers", borrowers);
@@ -293,10 +291,10 @@ public class AdminServlet extends HttpServlet {
 			try {
 				branches= admin.searchBranch(search);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			request.setAttribute("branches", branches);
@@ -309,10 +307,10 @@ public class AdminServlet extends HttpServlet {
 			try {
 				publishers= admin.searchPublisher(search);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			request.setAttribute("publishers", publishers);
@@ -325,10 +323,10 @@ public class AdminServlet extends HttpServlet {
 			try {
 				books= admin.searchBook(search);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			request.setAttribute("books", books);
@@ -353,7 +351,7 @@ public class AdminServlet extends HttpServlet {
 		 try {
 			bor.returnBook(bookloans);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	 }
@@ -381,7 +379,7 @@ public class AdminServlet extends HttpServlet {
 		 try {
 			 admin.dueDate(bookloans);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	 }
@@ -397,7 +395,7 @@ public class AdminServlet extends HttpServlet {
 			try {
 				admin.createBranch(branch);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 		  }
@@ -411,7 +409,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updateBook(book);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -431,7 +429,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updateBranch(branch);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -446,7 +444,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updateAuthor(author);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -465,7 +463,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updateBook(book);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -481,7 +479,7 @@ public class AdminServlet extends HttpServlet {
 			authors = admin.viewAuthorById(author);
 			author1.add(authors);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 		
@@ -499,7 +497,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.createBook(book);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -519,7 +517,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.createPublisher(publisher);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -539,7 +537,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.createBorrower(borrower);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -561,7 +559,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updateBorrower(borrower);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -582,7 +580,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.updatePublisher(publisher);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -598,7 +596,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.deleteAuthor(author);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -629,7 +627,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.deleteBorrower(borrower);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -645,7 +643,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.deleteBranch(branch);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -662,7 +660,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.deleteBook(book);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -678,7 +676,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			admin.deletePublisher(publisher);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -704,10 +702,10 @@ public class AdminServlet extends HttpServlet {
 		try {
 			bor.access(cardNo);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -718,10 +716,10 @@ public class AdminServlet extends HttpServlet {
 				c = 0;
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}if(c==1){
 			return "/selectaction2.jsp";
@@ -759,7 +757,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			branches = admin.viewBranchByBranchId(branch);
 		} catch (Exception e2) {
-			// TODO Auto-generated catch block
+			
 			e2.printStackTrace();
 		}*/
 		
@@ -767,7 +765,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			borrowers = admin.viewBorrowerByCardNo(borrower);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}*/
 		BookLoans bl = new BookLoans();
@@ -779,7 +777,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			bor.checkOut(bl);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }
@@ -797,7 +795,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			lib.updateDetails(branch);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	  }

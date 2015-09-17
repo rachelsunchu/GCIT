@@ -45,7 +45,7 @@ public class BookLoansDAO extends BaseDAO{
 	}
 	
 	public void updateDueDate(BookLoans bookloans) throws ClassNotFoundException, SQLException{
-		save("update tbl_book_loans set dueDate=CURDATE()+INTERVAL 7 Day where bookId=? and branchId=? and cardNo=?",
+		save("update tbl_book_loans set dueDate=dueDate+INTERVAL 7 Day where bookId=? and branchId=? and cardNo=?",
 				new Object[] {bookloans.getBook().getBookId(), bookloans.getBranch().getBranchId(),bookloans.getBorrower().getCardNo()});
 	}
 

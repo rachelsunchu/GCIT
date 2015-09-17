@@ -15,7 +15,7 @@
 <br><br>
 <br><br><br><br>
 <body>
-<form action="dueDate" method="post">
+
 <table>
 	<tr>
 	<th>Book ID</th>
@@ -33,11 +33,11 @@
 			<td align="center"><%=k.getBorrower().getCardNo()%></td>
 			<td align="center"><%=k.getDateOut()%></td>
 			<td align="center"><%=k.getDueDate()%></td>
-			<td align="center"><button type="button" class="btn btn-sm btn-info">Over Ride</button></td>
+			<td align="center"><button type="button" class="btn btn-sm btn-info" onclick="javascript:location.href='dueDate?bookId=<%=k.getBook().getBookId()%>&branchId=<%=k.getBranch().getBranchId()%>&cardNo=<%=k.getBorrower().getCardNo()%>'">Over Ride</button></td>
 		</tr>
 	<%} %>
 	
 </table>
-</form>
+
 </body>
 </html>
